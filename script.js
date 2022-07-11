@@ -7,6 +7,7 @@ let textAreas = document.getElementsByTagName("textarea");
 // convert HTML collection of textAreas into an array
 textAreas = [].slice.call(textAreas);
 
+// checks the assigned hour of all text areas against the current hour and assigns a color based on time
 function assessHour() {
     textAreas.forEach(element => {
         console.log(element.dataset.hour);
@@ -19,9 +20,30 @@ function assessHour() {
         else {
             element.classList.add("present");
         }
-
     });
 }
 
-console.log(currentHour);
+// populates textareas based on previously saved information
+function populateTextAreas() {
+    textAreas.forEach(element => {
+        const savedInfo = localStorage.getItem(element.dataset.hour);
+        if (savedInfo) {
+            element.value = savedInfo
+        }
+    });
+}
+
+// saves localStorage key value pair based on current textarea value when save is clicked
+function saveBtnClick(event) {
+    const textArea = $(event.target).siblings("textarea")[0];
+    localStorage.setItem(textArea.dataset.hour, textArea.value);
+}
+
+// runs populateTextAreas to populate textareas with saved localStorage information
+populateTextAreas();
+
+// run assess hour function to color code text areas based on time
 assessHour();
+
+// attach an event handler to saveBtn clicks to save data to local storage
+$(".saveBtn").click(saveBtnClick);
