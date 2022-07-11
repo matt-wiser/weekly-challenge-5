@@ -2,7 +2,7 @@ var currentDate = moment().format("dddd MMMM Do");
 
 document.getElementById("currentDay").textContent = currentDate;
 
-const currentHour = moment().hour();
+const currentHour = 13;
 let textAreas = document.getElementsByTagName("textarea");
 // convert HTML collection of textAreas into an array
 textAreas = [].slice.call(textAreas);
